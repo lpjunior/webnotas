@@ -1,3 +1,11 @@
+<?php
+
+    include 'crud.php';
+    if($_SERVER['REQUEST_METHOD'] === 'GET') {
+      $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+      $aluno = localiza($id);
+    }
+ ?>
 <!doctype html>
 <html lang="pt-br">
 <head>
@@ -51,22 +59,22 @@
       <img src="https://logodownload.org/wp-content/uploads/2014/10/senac-logo-2.png" height="200" width="300" class="rounded mx-auto d-block" alt="Logo Senac Transparente">
     </figure>
     <fieldset class="container-fluid text-center mt-5">
-      <legend class="mb-5">Cadastro de Aluno</legend>
-      <form action="cadastra.php" method="post" enctype="multipart/form-data">
+      <legend class="mb-5">Editar de Aluno</legend>
+      <form action="update.php" method="post" enctype="multipart/form-data">
         <div class="row">
 
           <!-- Column Contact basic Informations html -->
           <div class="col-10 offset-1 col-sm-4">
             <div class="form-group">
               <label for="inputNome" class="sr-only">Nome</label>
-              <input type="text" class="form-control" title="Nome do contato" id="inputNome" placeholder="Informe o nome" name="txtNome" required>
+              <input type="text" class="form-control" title="Nome do contato" id="inputNome" placeholder="Informe o nome" name="txtNome" value="<?= $aluno['nome'] ?>" required>
             </div>
             <div class="form-group">
               <label for="inputEmail" class="sr-only">Email</label>
-              <input type="email" class="form-control" title="Email do contato" id="inputEmail" placeholder="Informe o email" name="txtEmail" required>
+              <input type="email" class="form-control" title="Email do contato" id="inputEmail" placeholder="Informe o email" name="txtEmail" value="<?= $aluno['email'] ?>" required>
             </div>
             <div id="btn" class="responsive-btn">
-              <button type="submit" class="btn btn-dark float-left col-sm-4">Gravar</button>
+              <button type="submit" name="txtId" value="<?= $aluno['id'] ?>" class="btn btn-dark float-left col-sm-4">Gravar</button>
             </div>
           </div>
 
@@ -74,11 +82,11 @@
           <div class="col-10 offset-1 col-sm-4">
             <div class="form-group">
               <label for="inputNota01" class="sr-only">Nota 01</label>
-              <input type="number" min="0" max="10.0" class="form-control" title="Nota 01" id="inputNota 01" placeholder="Informe a Nota 01" name="txtNota01" required>
+              <input type="number" min="0" max="10.0" class="form-control" title="Nota 01" id="inputNota 01" placeholder="Informe a Nota 01" name="txtNota01" value="<?= number_format($aluno['nota01'] / 10, 1, '.', '') ?>" required>
             </div>
             <div class="form-group">
               <label for="inputNota01" class="sr-only">Nota 02</label>
-              <input type="number" min="0" max="10.0" class="form-control" title="Nota 02" id="inputNota 02" placeholder="Informe a Nota 02" name="txtNota02" required>
+              <input type="number" min="0" max="10.0" class="form-control" title="Nota 02" id="inputNota 02" placeholder="Informe a Nota 02" name="txtNota02" value="<?= number_format($aluno['nota02'] / 10, 1, '.', '') ?>" required>
             </div>
             <div id="btn" class="responsive-btn">
               <a href="listar.php" class="btn btn-success float-right col-sm-4">Listar</a>
